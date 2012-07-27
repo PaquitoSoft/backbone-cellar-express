@@ -15,6 +15,10 @@ html
 		block content
 
 		// Templates
+		script(id="tpl-header", type="text/template")
+			span.title Backbone Cellar
+			button.new New Wine
+
 		script(id="tpl-wine-list-item", type="text/template")			
 			a(href="#wines/{{id}}") {{name}}
 
@@ -32,6 +36,8 @@ html
 				input#region(type="text", name="region", value="{{region}}")
 				label Year:
 				input#year(type="text", name="year", value="{{year}}")
+				button.save Save
+				button.delete Delete
 			div.form-right-col
 				img(height="300", src="/images/{{picture}}")
 				label Notes:
@@ -46,4 +52,4 @@ html
 	script(src="/js/lib/underscore-min.js")
 	script(src="/js/lib/backbone-min.js")
 	script(src="/js/lib/mustache.js")
-	script(src="/js/tutorial/part1/main.js")
+	script(src="/js/tutorial/part2/main.js")
