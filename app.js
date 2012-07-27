@@ -39,7 +39,7 @@ app.all('*', function(req, res, next) {
 });
 
 app.get('/api/wines', routes.getAll);
-app.get('/api/wines/srearch/:query', routes.searchWine);
+app.get('/api/wines/search/:query', routes.searchWine);
 app.get('/api/wines/:id', routes.getWine);
 app.post('/api/wines', routes.createWine);
 app.put('/api/wines/:id', routes.updateWine);
