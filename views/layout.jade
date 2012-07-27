@@ -1,0 +1,49 @@
+doctype 5
+html
+	head
+		title Backbone Cellar
+		link(rel='stylesheet', href='/stylesheets/styles.css')
+		script.
+			window.cellar = {
+				models: [],
+				collections: [],
+				views: [],
+				bootstrapData: {}
+			};
+
+	body
+		block content
+
+		// Templates
+		script(id="tpl-wine-list-item", type="text/template")			
+			a(href="#wines/{{id}}") {{name}}
+
+		script(id="tpl-wine-details", type="text/template")
+			div.form-left-col
+				label Id:
+				input#wineId(type="text", name="id", value="{{id}}", disabled)				
+				label Name:
+				input#name(type="text", name="name", value="{{name}}", required)
+				label Grapes:
+				input#grapes(type="text", name="grapes", value="{{grapes}}")
+				label Country:
+				input#country(type="text", name="country", value="{{country}}")
+				label Region:
+				input#region(type="text", name="region", value="{{region}}")
+				label Year:
+				input#year(type="text", name="year", value="{{year}}")
+			div.form-right-col
+				img(height="300", src="/images/{{picture}}")
+				label Notes:
+				textarea#description(name="description") {{description}}
+
+	// Scripts
+
+	script.
+		cellar.bootstrapData.wines = !{wines}
+
+	script(src="/js/lib/jquery-1.7.1.min.js")
+	script(src="/js/lib/underscore-min.js")
+	script(src="/js/lib/backbone-min.js")
+	script(src="/js/lib/mustache.js")
+	script(src="/js/tutorial/part1/main.js")
