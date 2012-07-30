@@ -3,7 +3,7 @@ cellar.events = _.extend({}, Backbone.Events);
 
 // Create the models
 cellar.models.Wine = Backbone.Model.extend({
-    url: '/wines',
+    urlRoot: '/api/wines',
     defaults: {
         id: null,
         name: '',
@@ -93,8 +93,14 @@ cellar.views.WineView = Backbone.View.extend({
             description: $('#description').val()
         });
         if (this.model.isNew()) {
+            var self = this;
             // TODO This looks quiet bad. Use events instead?
-            cellar.app.wineList.create(this.model);
+            cellar.app.wineList.create(this.model, {
+                success: function() {
+                    cellar.app.navigate('wines/' + self.model.id, false); // FALSE to not navigate to that URL
+                }
+            });
+
         } else {
             this.model.save();
         }
@@ -129,11 +135,16 @@ cellar.views.HeaderView = Backbone.View.extend({
     },
     newWine: function(event) {
         // TODO This function looks quiet coupled to other components
+        /*
         if (cellar.app.wineView) {
             cellar.app.wineView.close();
         }
         cellar.app.wineView = new cellar.views.WineView({ model: new cellar.models.Wine() });
         $('#content').html(cellar.app.wineView.render().el);
+        return false;
+        */
+
+        cellar.app.navigate('wines/new', true);
         return false;
     }
 });
@@ -150,6 +161,7 @@ cellar.AppRouter = Backbone.Router.extend({
 
     routes: {
         '': 'list',
+        'wines/new': 'newWine', // Routes order matters!
         'wines/:id': 'wineDetails' // Sidebar links are target to this pattern (ex: '#wines/2'). When the URL is updated, the router catch that event and matches the route
     },
     list: function() {
@@ -166,6 +178,14 @@ cellar.AppRouter = Backbone.Router.extend({
         }
         this.wineView = new cellar.views.WineView({ model: this.wine });
         $('#content').html(this.wineView.render().el);
+    },
+    newWine: function() {
+        if (cellar.app.wineView) {
+            cellar.app.wineView.close();
+        }
+        cellar.app.wineView = new cellar.views.WineView({ model: new cellar.models.Wine() });
+        //cellar.app.wineView.render();
+        $('#content').html(cellar.app.wineView.render().el);
     }
 });
 

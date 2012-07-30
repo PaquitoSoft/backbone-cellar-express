@@ -43,7 +43,7 @@ app.get('/api/wines/search/:query', routes.searchWine);
 app.get('/api/wines/:id', routes.getWine);
 app.post('/api/wines', routes.createWine);
 app.put('/api/wines/:id', routes.updateWine);
-app.delete('/wines/:id', routes.removeWine);
+app.delete('/api/wines/:id', routes.removeWine);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

@@ -30,6 +30,6 @@ exports.updateWine = function(req, res) {
 	res.json(req.body);
 };
 exports.removeWine = function(req, res) {
-	wines.remove(req.id);
+	wines.remove(req.params.id);
 	res.json({});
 };
